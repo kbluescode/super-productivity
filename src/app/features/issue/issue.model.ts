@@ -24,6 +24,8 @@ import { GiteaCfg } from './providers/gitea/gitea.model';
 import { GiteaIssue } from './providers/gitea/gitea-issue/gitea-issue.model';
 import { RedmineCfg } from './providers/redmine/redmine.model';
 import { RedmineIssue } from './providers/redmine/redmine-issue/redmine-issue.model';
+import { AsanaCfg } from './providers/asana/asana.model';
+import { AsanaIssue } from './providers/asana/asana-issue/asana-issue.model';
 
 export interface BaseIssueProviderCfg {
   isEnabled: boolean;
@@ -36,7 +38,8 @@ export type IssueProviderKey =
   | 'CALDAV'
   | 'OPEN_PROJECT'
   | 'GITEA'
-  | 'REDMINE';
+  | 'REDMINE'
+  | 'ASANA';
 
 export type IssueIntegrationCfg =
   | JiraCfg
@@ -45,7 +48,8 @@ export type IssueIntegrationCfg =
   | CaldavCfg
   | OpenProjectCfg
   | GiteaCfg
-  | RedmineCfg;
+  | RedmineCfg
+  | AsanaCfg;
 
 export enum IssueLocalState {
   OPEN = 'OPEN',
@@ -62,6 +66,7 @@ export interface IssueIntegrationCfgs {
   OPEN_PROJECT?: OpenProjectCfg;
   GITEA?: GiteaCfg;
   REDMINE?: RedmineCfg;
+  ASANA?: AsanaCfg;
 }
 
 export type IssueData =
@@ -71,7 +76,8 @@ export type IssueData =
   | CaldavIssue
   | OpenProjectWorkPackage
   | GiteaIssue
-  | RedmineIssue;
+  | RedmineIssue
+  | AsanaIssue;
 
 export type IssueDataReduced =
   | GithubIssueReduced
@@ -80,7 +86,8 @@ export type IssueDataReduced =
   | OpenProjectWorkPackageReduced
   | CaldavIssueReduced
   | GiteaIssue
-  | RedmineIssue;
+  | RedmineIssue
+  | AsanaIssue;
 
 export interface SearchResultItem {
   title: string;

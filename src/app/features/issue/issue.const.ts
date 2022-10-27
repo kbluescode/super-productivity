@@ -34,6 +34,11 @@ import {
   REDMINE_CONFIG_FORM_SECTION,
 } from './providers/redmine/redmine.const';
 
+import {
+  DEFAULT_ASANA_CFG,
+  ASANA_CONFIG_FORM_SECTION,
+} from './providers/asana/asana.const';
+
 export const GITLAB_TYPE: IssueProviderKey = 'GITLAB';
 export const GITHUB_TYPE: IssueProviderKey = 'GITHUB';
 export const JIRA_TYPE: IssueProviderKey = 'JIRA';
@@ -41,6 +46,7 @@ export const CALDAV_TYPE: IssueProviderKey = 'CALDAV';
 export const OPEN_PROJECT_TYPE: IssueProviderKey = 'OPEN_PROJECT';
 export const GITEA_TYPE: IssueProviderKey = 'GITEA';
 export const REDMINE_TYPE: IssueProviderKey = 'REDMINE';
+export const ASANA_TYPE: IssueProviderKey = 'ASANA';
 
 export const ISSUE_PROVIDER_TYPES: IssueProviderKey[] = [
   GITLAB_TYPE,
@@ -50,6 +56,7 @@ export const ISSUE_PROVIDER_TYPES: IssueProviderKey[] = [
   OPEN_PROJECT_TYPE,
   GITEA_TYPE,
   REDMINE_TYPE,
+  ASANA_TYPE,
 ];
 
 export const ISSUE_PROVIDER_ICON_MAP = {
@@ -60,6 +67,7 @@ export const ISSUE_PROVIDER_ICON_MAP = {
   [OPEN_PROJECT_TYPE]: 'open_project',
   [GITEA_TYPE]: 'gitea',
   [REDMINE_TYPE]: 'redmine',
+  [ASANA_TYPE]: 'asana',
 };
 
 export const ISSUE_PROVIDER_HUMANIZED = {
@@ -70,6 +78,7 @@ export const ISSUE_PROVIDER_HUMANIZED = {
   [OPEN_PROJECT_TYPE]: 'OpenProject',
   [GITEA_TYPE]: 'Gitea',
   [REDMINE_TYPE]: 'Redmine',
+  [ASANA_TYPE]: 'Asana',
 };
 
 export const DEFAULT_ISSUE_PROVIDER_CFGS = {
@@ -80,6 +89,7 @@ export const DEFAULT_ISSUE_PROVIDER_CFGS = {
   [OPEN_PROJECT_TYPE]: DEFAULT_OPEN_PROJECT_CFG,
   [GITEA_TYPE]: DEFAULT_GITEA_CFG,
   [REDMINE_TYPE]: DEFAULT_REDMINE_CFG,
+  [ASANA_TYPE]: DEFAULT_ASANA_CFG,
 };
 
 export const ISSUE_PROVIDER_WITH_CUSTOM_COMP = [JIRA_ISSUE_TYPE, OPEN_PROJECT_TYPE];
@@ -92,6 +102,7 @@ export const ISSUE_PROVIDER_FORM_CFGS: ConfigFormConfig = [
   CALDAV_CONFIG_FORM_SECTION as GenericConfigFormSection,
   OPEN_PROJECT_CONFIG_FORM_SECTION as GenericConfigFormSection,
   GITEA_CONFIG_FORM_SECTION as GenericConfigFormSection,
+  ASANA_CONFIG_FORM_SECTION as GenericConfigFormSection,
 ].map((providerCfg) => ({
   ...providerCfg,
   // NOTE we don't do this for jira as there is a custom cfg component with an enabled toggle

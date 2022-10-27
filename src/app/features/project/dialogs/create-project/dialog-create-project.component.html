@@ -137,6 +137,21 @@
           >
         </button>
       </div>
+      <div class="item">
+        <button
+          (click)="openAsanaCfg()"
+          color="primary"
+          mat-button
+          type="button"
+        >
+          <mat-icon
+            *ngIf="!asanaCfg?.isEnabled"
+            svgIcon="asana"
+          ></mat-icon>
+          <mat-icon *ngIf="asanaCfg?.isEnabled">checkmark</mat-icon>
+          <span style="padding-left: 8px">SETUP ASANA INTEGRATION</span>
+        </button>
+      </div>
       <!--<div class="item">-->
       <!--<button mat-raised-button color=primary-->
       <!--type="button">-->

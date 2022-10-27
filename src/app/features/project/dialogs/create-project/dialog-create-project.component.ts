@@ -33,6 +33,7 @@ import {
   GITHUB_TYPE,
   GITLAB_TYPE,
   OPEN_PROJECT_TYPE,
+  ASANA_TYPE,
 } from '../../../issue/issue.const';
 import { T } from '../../../../t.const';
 import { DEFAULT_JIRA_CFG } from '../../../issue/providers/jira/jira.const';
@@ -52,6 +53,9 @@ import { DEFAULT_REDMINE_CFG } from '../../../issue/providers/redmine/redmine.co
 import { getRandomWorkContextColor } from '../../../work-context/work-context-color';
 import { DialogGiteaInitialSetupComponent } from 'src/app/features/issue/providers/gitea/gitea-view-components/dialog-gitea-initial-setup/dialog-gitea-initial-setup.component';
 import { DialogRedmineInitialSetupComponent } from 'src/app/features/issue/providers/redmine/redmine-view-components/redmine-initial-setup/dialog-redmine-initial-setup.component';
+import { AsanaCfg } from 'src/app/features/issue/providers/asana/asana.model';
+import { DEFAULT_ASANA_CFG } from 'src/app/features/issue/providers/asana/asana.const';
+import { DialogAsanaInitialSetupComponent } from 'src/app/features/issue/providers/asana/asana-view-components/asana-initial-setup/dialog-asana-initial-setup.component';
 
 @Component({
   selector: 'dialog-create-project',
@@ -72,6 +76,7 @@ export class DialogCreateProjectComponent implements OnInit, OnDestroy {
   openProjectCfg?: OpenProjectCfg;
   giteaCfg?: GiteaCfg;
   redmineCfg?: RedmineCfg;
+  asanaCfg?: AsanaCfg;
 
   formBasic: UntypedFormGroup = new UntypedFormGroup({});
   formTheme: UntypedFormGroup = new UntypedFormGroup({});
@@ -129,6 +134,7 @@ export class DialogCreateProjectComponent implements OnInit, OnDestroy {
           OPEN_PROJECT: this.openProjectCfg,
           GITEA: this.giteaCfg,
           REDMINE: this.redmineCfg,
+          ASANA: this.asanaCfg,
         };
         const projectDataToSave: Project | Partial<Project> = {
           ...this.projectData,
@@ -159,6 +165,9 @@ export class DialogCreateProjectComponent implements OnInit, OnDestroy {
       if (this.projectData.issueIntegrationCfgs.REDMINE) {
         this.redmineCfg = this.projectData.issueIntegrationCfgs.REDMINE;
       }
+      if (this.projectData.issueIntegrationCfgs.ASANA) {
+        this.asanaCfg = this.projectData.issueIntegrationCfgs.ASANA;
+      }
     }
   }
 
@@ -176,6 +185,7 @@ export class DialogCreateProjectComponent implements OnInit, OnDestroy {
       OPEN_PROJECT: this.openProjectCfg || DEFAULT_OPEN_PROJECT_CFG,
       GITEA: this.giteaCfg || DEFAULT_GITEA_CFG,
       REDMINE: this.redmineCfg || DEFAULT_REDMINE_CFG,
+      ASANA: this.asanaCfg || DEFAULT_ASANA_CFG,
     };
 
     const projectDataToSave: Project | Partial<Project> = {
@@ -327,6 +337,24 @@ export class DialogCreateProjectComponent implements OnInit, OnDestroy {
     );
   }
 
+  openAsanaCfg(): void {
+    this._subs.add(
+      this._matDialog
+        .open(DialogAsanaInitialSetupComponent, {
+          restoreFocus: true,
+          data: {
+            asanaCfg: { ...this.asanaCfg, isEnabled: true },
+          },
+        })
+        .afterClosed()
+        .subscribe((asanaCfg: AsanaCfg) => {
+          if (asanaCfg) {
+            this._saveAsanaCfg(asanaCfg);
+          }
+        }),
+    );
+  }
+
   private _saveRedmineCfg(redmineCfg: RedmineCfg): void {
     this.redmineCfg = redmineCfg;
     this._cd.markForCheck();
@@ -392,6 +420,20 @@ export class DialogCreateProjectComponent implements OnInit, OnDestroy {
         this.projectData.id,
         CALDAV_TYPE,
         this.caldavCfg,
+      );
+    }
+  }
+
+  private _saveAsanaCfg(asanaCfg: AsanaCfg): void {
+    this.asanaCfg = asanaCfg;
+    this._cd.markForCheck();
+
+    // if we're editing save right away
+    if (this.projectData.id) {
+      this._projectService.updateIssueProviderConfig(
+        this.projectData.id,
+        ASANA_TYPE,
+        this.asanaCfg,
       );
     }
   }

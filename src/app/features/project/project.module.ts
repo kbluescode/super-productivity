@@ -14,6 +14,7 @@ import { DialogCaldavInitialSetupModule } from '../issue/providers/caldav/dialog
 import { OpenProjectViewComponentsModule } from '../issue/providers/open-project/open-project-view-components/open-project-view-components.module';
 import { GiteaViewComponentsModule } from '../issue/providers/gitea/gitea-view-components/gitea-view-components.module';
 import { RedmineViewComponentsModule } from '../issue/providers/redmine/redmine-view-components/redmine-view-components.module';
+import { AsanaViewComponentsModule } from '../issue/providers/asana/asana-view-components/asana-view-components.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { RedmineViewComponentsModule } from '../issue/providers/redmine/redmine-
     OpenProjectViewComponentsModule,
     GiteaViewComponentsModule,
     RedmineViewComponentsModule,
+    AsanaViewComponentsModule,
   ],
   declarations: [DialogCreateProjectComponent],
   providers: [ProjectService],
